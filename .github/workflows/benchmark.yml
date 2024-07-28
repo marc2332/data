@@ -69,7 +69,7 @@ jobs:
         run: |
           cd nova
           cargo build --release --bin nova_cli
-          cargo run --release --bin nova_cli -- ../data/bench/bench-v8/combined.js > ../data/bench/nova_results.txt
+          cargo run --release --bin nova_cli -- eval ../data/bench/bench-v8/combined.js > ../data/bench/nova_results.txt
 
       - name: Collate Results
         run: |
