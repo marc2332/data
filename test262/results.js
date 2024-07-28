@@ -30,7 +30,7 @@ loadMainData();
 loadMainResults();
 
 const response = await fetch(
-  "https://api.github.com/repos/boa-dev/boa/releases"
+  "https://api.github.com/repos/trynova/nova/releases"
 );
 const releases = await response.json();
 releases.sort((a, b) => compareVersions(a.tag_name, b.tag_name) * -1);
@@ -212,7 +212,7 @@ function createInfoFromResults(resultsData, nodeID) {
     "afterbegin",
     `
     <li class="list-group-item">
-      Latest commit: <a href="https://github.com/boa-dev/boa/commit/${latest.c
+      Latest commit: <a href="https://github.com/trynova/nova/commit/${latest.c
     }" title="Check commit">${latest.c}</a>
     </li>
     <li class="list-group-item">

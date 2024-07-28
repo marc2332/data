@@ -54,7 +54,7 @@ Object.extend = function(destination, source) {
 //   flog/scene.js
 //   flog/material/basematerial.js
 //   flog/material/solid.js
-//   flog/material/chessboard.js
+//   flog/material/chessnovard.js
 //   flog/shape/baseshape.js
 //   flog/shape/sphere.js
 //   flog/shape/plane.js
@@ -371,9 +371,9 @@ Flog.RayTracer.Material.Solid.prototype = Object.extend(
 if(typeof(Flog) == 'undefined') var Flog = {};
 if(typeof(Flog.RayTracer) == 'undefined') Flog.RayTracer = {};
 
-Flog.RayTracer.Material.Chessboard = Class.create();
+Flog.RayTracer.Material.Chessnovard = Class.create();
 
-Flog.RayTracer.Material.Chessboard.prototype = Object.extend(
+Flog.RayTracer.Material.Chessnovard.prototype = Object.extend(
     new Flog.RayTracer.Material.BaseMaterial(), {
         colorEven: null,
         colorOdd: null,
@@ -843,7 +843,7 @@ function renderScene(){
     var plane = new Flog.RayTracer.Shape.Plane(
                                 new Flog.RayTracer.Vector(0.1, 0.9, -0.5).normalize(),
                                 1.2,
-                                new Flog.RayTracer.Material.Chessboard(
+                                new Flog.RayTracer.Material.Chessnovard(
                                     new Flog.RayTracer.Color(1,1,1),
                                     new Flog.RayTracer.Color(0,0,0),
                                     0.2,

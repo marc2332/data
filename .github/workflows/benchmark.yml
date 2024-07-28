@@ -17,12 +17,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: data
-      - name: Checkout the main Boa repository
+      - name: Checkout the main nova repository
         uses: actions/checkout@v4
         with:
-          repository: boa-dev/boa
+          repository: trynova/nova
           ref: main
-          path: boa
       - name: Install the Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -31,45 +30,45 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            boa/target
+            nova/target
             ~/.cargo/git
             ~/.cargo/registry
           key: ${{ runner.os }}-cargo-benchmarks-${{ hashFiles('**/Cargo.lock') }}
 
-      - name: Benchmarking duktape
-        run: |
-          wget https://github.com/svaarala/duktape/releases/download/v2.7.0/duktape-2.7.0.tar.xz
-          tar xvfJ duktape-2.7.0.tar.xz
-          cd duktape-2.7.0
-          make -f Makefile.cmdline
-          ./duk ../data/bench/bench-v8/combined.js > ../data/bench/duktape_results.txt
-      - uses: actions/setup-node@v4
-      - name: Benchmarking quickJS
-        run: |
-          npm i -g esvu
-          esvu install quickjs
-          ./bin/quickjs data/bench/bench-v8/combined.js > data/bench/quickjs_results.txt
+      # - name: Benchmarking duktape
+      #   run: |
+      #     wget https://github.com/svaarala/duktape/releases/download/v2.7.0/duktape-2.7.0.tar.xz
+      #     tar xvfJ duktape-2.7.0.tar.xz
+      #     cd duktape-2.7.0
+      #     make -f Makefile.cmdline
+      #     ./duk ../data/bench/bench-v8/combined.js > ../data/bench/duktape_results.txt
+      # - uses: actions/setup-node@v4
+      # - name: Benchmarking quickJS
+      #   run: |
+      #     npm i -g esvu
+      #     esvu install quickjs
+      #     ./bin/quickjs data/bench/bench-v8/combined.js > data/bench/quickjs_results.txt
 
-      - name: Benchmarking V8 --jitless
-        run: |
-          esvu install v8
-          ./bin/v8 --jitless data/bench/bench-v8/combined.js > data/bench/v8-jitless_results.txt
+      # - name: Benchmarking V8 --jitless
+      #   run: |
+      #     esvu install v8
+      #     ./bin/v8 --jitless data/bench/bench-v8/combined.js > data/bench/v8-jitless_results.txt
 
-      - name: Benchmarking SpiderMonkey --jitless
-        run: |
-          esvu install jsshell
-          ./bin/sm --no-jit-backend data/bench/bench-v8/combined.js > data/bench/sm-jitless_results.txt
+      # - name: Benchmarking SpiderMonkey --jitless
+      #   run: |
+      #     esvu install jsshell
+      #     ./bin/sm --no-jit-backend data/bench/bench-v8/combined.js > data/bench/sm-jitless_results.txt
 
-      - name: Benchmarking LibJS
-        run: |
-          esvu install libjs
-          ./bin/ladybird-js data/bench/bench-v8/combined.js > data/bench/libjs_results.txt
+      # - name: Benchmarking LibJS
+      #   run: |
+      #     esvu install libjs
+      #     ./bin/ladybird-js data/bench/bench-v8/combined.js > data/bench/libjs_results.txt
 
-      - name: Benchmarking Boa
+      - name: Benchmarking nova
         run: |
-          cd boa
-          cargo build --release --bin boa
-          cargo run --release --bin boa -- ../data/bench/bench-v8/combined.js > ../data/bench/boa_results.txt
+          cd nova
+          cargo build --release --bin nova_cli
+          cargo run --release --bin nova_cli -- ../data/bench/bench-v8/combined.js > ../data/bench/nova_results.txt
 
       - name: Collate Results
         run: |
