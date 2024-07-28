@@ -16,6 +16,7 @@ jobs:
         with:
           repository: trynova/nova
           ref: main
+          path: main
           submodules: true
       - name: Install the Rust toolchain
         uses: dtolnay/rust-toolchain@stable
